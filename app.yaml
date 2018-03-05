@@ -1,0 +1,24 @@
+runtime: go
+api_version: go1
+env_variables:
+  GAUCHE_AIRTABLE_APIKEY: "my secret key"
+  GAUCHE_AIRTABLE_APPPATH: "/app..."
+  GAUCHE_AIRTABLE_BASEID: "app..."
+  GAUCHE_AIRTABLE_BASEPATH: "/app..."
+  GAUCHE_AIRTABLE_ROOTURL: "https://www.airtable.com"
+  GAUCHE_PREFIX: eg
+
+handlers:
+- url: /_favicon.png$
+  static_files: images/favicon.png
+  upload: images/favicon.png
+
+- url: /_extensions/(.*)$
+  static_files: build/extensions/\1
+  upload: build/extensions/.*
+  secure: always
+
+- url: /.*
+  login: required
+  script: _go_app
+  secure: always
